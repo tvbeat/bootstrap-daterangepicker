@@ -18,8 +18,6 @@
 
         //create the picker HTML object
         var DRPTemplate = '<div class="daterangepicker dropdown-menu">' +
-                '<div class="calendar left"></div>' +
-                '<div class="calendar right"></div>' +
                 '<div class="ranges">' +
                   '<div class="range_inputs">' +
                     '<div class="daterangepicker_start_input">' +
@@ -34,6 +32,8 @@
                     '<button class="cancelBtn"></button>' +
                   '</div>' +
                 '</div>' +
+                '<div class="calendar left"></div>' +
+                '<div class="calendar right"></div>' +
               '</div>';
 
         //custom options
@@ -308,7 +308,7 @@
                 for (range in this.ranges) {
                     list += '<li>' + range + '</li>';
                 }
-                list += '<li>' + this.locale.customRangeLabel + '</li>';
+                // list += '<li>' + this.locale.customRangeLabel + '</li>';
                 list += '</ul>';
                 this.container.find('.ranges ul').remove();
                 this.container.find('.ranges').prepend(list);
@@ -597,9 +597,10 @@
 
                 this.updateInputText();
 
-                this.hideCalendars();
-                this.hide();
+                // this.hideCalendars();
+                // this.hide();
                 this.element.trigger('apply.daterangepicker', this);
+                this.element.trigger('dateClicked.daterangepicker', this);
             }
         },
 
@@ -785,9 +786,9 @@
                 }
                 i++;
             }
-            if (customRange) {
+            if (customRange && this.container.find('.ranges li:last').text() == this.locale.customRangeLabel) {
                 this.chosenLabel = this.container.find('.ranges li:last')
-                    .addClass('active').html();
+                     .addClass('active').html();
             }
         },
 
@@ -873,7 +874,7 @@
                 html += '<th></th>';
 
             if (!minDate || minDate.isBefore(calendar[1][1])) {
-                html += '<th class="prev available"><i class="fa fa-arrow-left icon-arrow-left glyphicon glyphicon-arrow-left"></i></th>';
+                html += '<th class="prev available"><span class="icon icon-left-open-mini"></span></th>';
             } else {
                 html += '<th></th>';
             }
@@ -886,7 +887,7 @@
 
             html += '<th colspan="5" class="month">' + dateHtml + '</th>';
             if (!maxDate || maxDate.isAfter(calendar[1][1])) {
-                html += '<th class="next available"><i class="fa fa-arrow-right icon-arrow-right glyphicon glyphicon-arrow-right"></i></th>';
+                html += '<th class="next available"><span class="icon icon-right-open-mini"></span></th>';
             } else {
                 html += '<th></th>';
             }
