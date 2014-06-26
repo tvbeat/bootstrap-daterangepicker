@@ -424,7 +424,7 @@
             var dateString = this.element.val().split(this.separator),
                 start = null,
                 end = null;
-            
+
             if(dateString.length === 2) {
                 start = moment(dateString[0], this.format);
                 end = moment(dateString[1], this.format);
@@ -434,7 +434,7 @@
                 start = moment(this.element.val(), this.format);
                 end = start;
             }
-            
+
             if (end.isBefore(start)) return;
 
             this.oldStartDate = this.startDate.clone();
@@ -689,7 +689,7 @@
             this.leftCalendar.month.month(this.startDate.month()).year(this.startDate.year());
             this.rightCalendar.month.month(this.endDate.month()).year(this.endDate.year());
             this.updateCalendars();
-
+            this.element.trigger('dateClicked.daterangepicker', this);
             if (!this.timePicker)
                 endDate.endOf('day');
 
