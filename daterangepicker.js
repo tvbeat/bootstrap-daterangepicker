@@ -780,8 +780,11 @@
                     //ignore times when comparing dates if time picker is not enabled
                     if (this.startDate.format('YYYY-MM-DD') == this.ranges[range][0].format('YYYY-MM-DD') && this.endDate.format('YYYY-MM-DD') == this.ranges[range][1].format('YYYY-MM-DD')) {
                         customRange = false;
-                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
-                            .addClass('active').html();
+                        var li = this.container.find('.ranges li:eq(' + i + ')')
+                        if (this.container.find('.ranges li.active').length === 0) {
+                            li.addClass('active');
+                        }
+                        this.chosenLabel = li.html();
                     }
                 }
                 i++;
