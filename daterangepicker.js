@@ -523,7 +523,8 @@
             if (
                 target.closest(this.element).length ||
                 target.closest(this.container).length ||
-                target.closest('.calendar-date').length
+                target.closest('.calendar-date').length ||
+                e.type === 'focusin' && e.isTrigger
                 ) return;
             this.hide();
         },
